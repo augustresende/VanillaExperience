@@ -1,0 +1,41 @@
+modLoader="javafml" #mandatory
+
+loaderVersion="[32,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+
+issueTrackerURL="https://mods.augustoresende.com/vanillaexperience/issues"
+
+
+[[mods]]
+modId="vanillaexperience"
+
+version="0.0.1"
+
+displayName="Vanilla Experience"
+
+updateJSONURL="https://mods.augustoresende.com/vanillaexperience/updates.json"
+
+displayURL="https://mods.augustoresende.com/vanillaexperience/"
+logoFile="vex.png"
+
+credits="Vanilla Experience Mod!"
+
+authors="AugustoResende" #optional
+
+description='''
+Thanks for downloading!
+
+'''
+
+[[dependencies.forge]]
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[32,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.minecraft]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15,)"
+    ordering="NONE"
+    side="BOTH"
