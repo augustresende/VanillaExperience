@@ -2,6 +2,7 @@ package com.vanilla.experience;
 
 import com.vanilla.experience.enhancedberries.*;
 import com.vanilla.experience.enhancedbonemeal.*;
+import com.vanilla.experience.enhancedseeds.*;
 import com.vanilla.experience.zerotickunpatch.*;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -45,11 +46,13 @@ public class VanillaExperience
         MinecraftForge.EVENT_BUS.register(this);
 
         DispenserBlock.registerDispenseBehavior(Items.BONE_MEAL, new EnhancedBoneMealDispenserBehaviour());
+        DispenserBlock.registerDispenseBehavior(Items.WHEAT_SEEDS, new EnhancedSeedsDispenserBehaviour());
     }
 
     private void loadCompleted(FMLLoadCompleteEvent e){
         MinecraftForge.EVENT_BUS.register(new EnhancedBoneMeal());
         MinecraftForge.EVENT_BUS.register(new EnhancedBerries());
+        MinecraftForge.EVENT_BUS.register(new EnhancedSeeds());
     }
 
     /* private void setup(final FMLCommonSetupEvent event)
@@ -98,7 +101,7 @@ public class VanillaExperience
                 blockRegistryEvent.getRegistry().register(new ZeroTickKelpTopBlock(Block.Properties.from(Blocks.KELP)).setRegistryName("minecraft", "kelp"));
                 blockRegistryEvent.getRegistry().register(new ZeroTickWeepingVinesTopBlock(Block.Properties.from(Blocks.field_235384_mx_)).setRegistryName("minecraft", "weeping_vines"));
                 blockRegistryEvent.getRegistry().register(new ZeroTickTwistingVinesTopBlock(Block.Properties.from(Blocks.field_235386_mz_)).setRegistryName("minecraft", "twisting_vines"));
-                // blockRegistryEvent.getRegistry().register(new ZeroTickChorusFlowerBlock(new ChorusPlantBlock(Block.Properties.from(Blocks.CHORUS_PLANT)), Block.Properties.from(Blocks.CHORUS_FLOWER)).setRegistryName("minecraft", "chorus_flower"));
+                blockRegistryEvent.getRegistry().register(new ZeroTickChorusFlowerBlock((ChorusPlantBlock) Blocks.CHORUS_PLANT, Block.Properties.from(Blocks.CHORUS_FLOWER)).setRegistryName("minecraft", "chorus_flower"));
             }
         }
 
@@ -111,7 +114,7 @@ public class VanillaExperience
                 itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.KELP, new Item.Properties().group(Items.KELP.getGroup())).setRegistryName("minecraft", "kelp"));
                 itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.field_235384_mx_, new Item.Properties().group(Items.field_234718_bB_.getGroup())).setRegistryName("minecraft", "weeping_vines"));
                 itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.field_235386_mz_, new Item.Properties().group(Items.field_234719_bC_.getGroup())).setRegistryName("minecraft", "twisting_vines"));
-                // itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.CHORUS_FLOWER, new Item.Properties().group(Items.CHORUS_FLOWER.getGroup())).setRegistryName("minecraft", "chorus_flower"));
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.CHORUS_FLOWER, new Item.Properties().group(Items.CHORUS_FLOWER.getGroup())).setRegistryName("minecraft", "chorus_flower"));
             }
         }
     }

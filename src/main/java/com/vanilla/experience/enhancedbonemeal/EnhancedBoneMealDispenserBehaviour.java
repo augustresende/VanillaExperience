@@ -6,52 +6,57 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 
 public class EnhancedBoneMealDispenserBehaviour extends DefaultDispenseItemBehavior
 {
-    private static final Logger LOGGER = LogManager.getLogger();
-
     @Override
     public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-        Direction facing = source.getBlockState().get(DispenserBlock.FACING);
-        BlockPos pos = source.getBlockPos().offset(facing);
         World world = source.getWorld();
+        BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
+        if (!BoneMealItem.applyBonemeal(stack, world, blockpos) && !BoneMealItem.growSeagrass(stack, world, blockpos, (Direction)null)) {
+            Direction facing = source.getBlockState().get(DispenserBlock.FACING);
+            BlockPos blockPos = source.getBlockPos().offset(facing);
 
-        BlockState blockState = world.getBlockState(pos);
+            BlockState blockState = world.getBlockState(blockPos);
+            Block currentBlock = blockState.getBlock();
 
-        if(blockState.getBlock().equals(Blocks.SUGAR_CANE) || blockState.getBlock().equals(Blocks.CACTUS)) {
-            for (int y = pos.getY(); y <= 256; y++) {
-                BlockPos upper = new BlockPos(pos.getX(), y, pos.getZ());
-                Block upperBlock = world.getBlockState(upper).getBlock();
-                if (upperBlock.equals(Blocks.AIR)) {
-                    world.setBlockState(upper, blockState.getBlock().getDefaultState());
-                    world.playEvent(2005, upper, 0);
-                    world.playEvent(2005, upper.up(), 0);
-                    return stack.split(1);
+            if(currentBlock.equals(Blocks.SUGAR_CANE) || currentBlock.equals(Blocks.CACTUS)) {
+                for (int y = blockPos.getY(); y <= 256; y++) {
+                    BlockPos upperPos = new BlockPos(blockPos.getX(), y, blockPos.getZ());
+                    Block upperBlock = world.getBlockState(upperPos).getBlock();
+                    if (upperBlock.equals(Blocks.AIR)) {
+                        world.setBlockState(upperPos, blockState.getBlock().getDefaultState());
+                        world.playEvent(2005, upperPos, 0);
+                        world.playEvent(2005, upperPos.up(), 0);
+                        stack.shrink(1);
+                        return stack;
+                    }
                 }
-            }
-            return stack;
-        } else if (blockState.getBlock().equals(Blocks.VINE)) {
-            for (int y = pos.getY(); y > 0; y--) {
-                BlockPos down = new BlockPos(pos.getX(), y, pos.getZ());
-                Block downBlock = world.getBlockState(down).getBlock();
-                if (downBlock.equals(Blocks.AIR)) {
-                    world.setBlockState(down, blockState.getBlock().getDefaultState());
-                    world.playEvent(2005, down, 0);
-                    world.playEvent(2005, down.up(), 0);
-                    return stack.split(1);
+                return super.dispenseStack(source, stack);
+            } else if (blockState.getBlock().equals(Blocks.VINE)) {
+                for (int y = blockPos.getY(); y > 0; y--) {
+                    BlockPos downPos = new BlockPos(blockPos.getX(), y, blockPos.getZ());
+                    Block downBlock = world.getBlockState(downPos).getBlock();
+                    if (downBlock.equals(Blocks.AIR)) {
+                        world.setBlockState(downPos, blockState.getBlock().getDefaultState());
+                        world.playEvent(2005, downPos, 0);
+                        world.playEvent(2005, downPos.up(), 0);
+                        stack.shrink(1);
+                        return stack;
+                    }
                 }
+                return stack;
             }
-            return stack;
         } else {
-            return super.dispenseStack(source, stack);
+            world.playEvent(2005, blockpos, 0);
+            return stack;
         }
+
+        return stack;
     }
 }

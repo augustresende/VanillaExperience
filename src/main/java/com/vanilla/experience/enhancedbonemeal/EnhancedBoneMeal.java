@@ -24,32 +24,31 @@ public class EnhancedBoneMeal {
             return;
 
         BlockPos blockPos = e.getPos();
-        BlockState state = world.getBlockState(blockPos);
-        Block block = state.getBlock();
+        BlockState blockState = world.getBlockState(blockPos);
+        Block currentBlock = blockState.getBlock();
 
-        BlockPos pos = e.getPos();
-        if(block.equals(Blocks.CACTUS) || block.equals((Blocks.SUGAR_CANE))) {
-            for (int y = pos.getY(); y <= 256; y++) {
-                BlockPos upper = new BlockPos(pos.getX(), y, pos.getZ());
-                Block upperBlock = world.getBlockState(upper).getBlock();
+        if(currentBlock.equals(Blocks.CACTUS) || currentBlock.equals((Blocks.SUGAR_CANE))) {
+            for (int y = blockPos.getY(); y <= 256; y++) {
+                BlockPos upperPos = new BlockPos(blockPos.getX(), y, blockPos.getZ());
+                Block upperBlock = world.getBlockState(upperPos).getBlock();
                 if (upperBlock.equals(Blocks.AIR)) {
-                    world.setBlockState(upper, block.getDefaultState());
-                    world.playEvent(2005, upper, 0);
-                    world.playEvent(2005, upper.up(), 0);
+                    world.setBlockState(upperPos, currentBlock.getDefaultState());
+                    world.playEvent(2005, upperPos, 0);
+                    world.playEvent(2005, upperPos.up(), 0);
                     if (!player.isCreative())
                         hand.shrink(1);
                     return;
                 }
             }
         }
-        if(block.equals(Blocks.VINE)) {
-            for (int y = pos.getY(); y > 0; y--) {
-                BlockPos down = new BlockPos(pos.getX(), y, pos.getZ());
-                Block downBlock = world.getBlockState(down).getBlock();
+        if(currentBlock.equals(Blocks.VINE)) {
+            for (int y = blockPos.getY(); y > 0; y--) {
+                BlockPos downPos = new BlockPos(blockPos.getX(), y, blockPos.getZ());
+                Block downBlock = world.getBlockState(downPos).getBlock();
                 if (downBlock.equals(Blocks.AIR)) {
-                    world.setBlockState(down, block.getDefaultState());
-                    world.playEvent(2005, down, 0);
-                    world.playEvent(2005, down.down(), 0);
+                    world.setBlockState(downPos, currentBlock.getDefaultState());
+                    world.playEvent(2005, downPos, 0);
+                    world.playEvent(2005, downPos.down(), 0);
                     if (!player.isCreative())
                         hand.shrink(1);
                     return;

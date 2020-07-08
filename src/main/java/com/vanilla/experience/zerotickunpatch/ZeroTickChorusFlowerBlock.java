@@ -8,7 +8,6 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-// DISABLE DUE TO BUGS (NEED HELP)
 
 public class ZeroTickChorusFlowerBlock extends ChorusFlowerBlock
 {
