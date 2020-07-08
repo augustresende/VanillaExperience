@@ -18,7 +18,7 @@ public class EnhancedBoneMealDispenserBehaviour extends DefaultDispenseItemBehav
     public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
         World world = source.getWorld();
         BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
-        if (!BoneMealItem.applyBonemeal(stack, world, blockpos) && !BoneMealItem.growSeagrass(stack, world, blockpos, (Direction)null)) {
+        if(!BoneMealItem.applyBonemeal(stack, world, blockpos) && !BoneMealItem.growSeagrass(stack, world, blockpos, (Direction)null)) {
             Direction facing = source.getBlockState().get(DispenserBlock.FACING);
             BlockPos blockPos = source.getBlockPos().offset(facing);
 
@@ -26,10 +26,10 @@ public class EnhancedBoneMealDispenserBehaviour extends DefaultDispenseItemBehav
             Block currentBlock = blockState.getBlock();
 
             if(currentBlock.equals(Blocks.SUGAR_CANE) || currentBlock.equals(Blocks.CACTUS)) {
-                for (int y = blockPos.getY(); y <= 256; y++) {
+                for(int y = blockPos.getY(); y <= 256; y++) {
                     BlockPos upperPos = new BlockPos(blockPos.getX(), y, blockPos.getZ());
                     Block upperBlock = world.getBlockState(upperPos).getBlock();
-                    if (upperBlock.equals(Blocks.AIR)) {
+                    if(upperBlock.equals(Blocks.AIR)) {
                         world.setBlockState(upperPos, blockState.getBlock().getDefaultState());
                         world.playEvent(2005, upperPos, 0);
                         world.playEvent(2005, upperPos.up(), 0);
@@ -38,8 +38,8 @@ public class EnhancedBoneMealDispenserBehaviour extends DefaultDispenseItemBehav
                     }
                 }
                 return super.dispenseStack(source, stack);
-            } else if (blockState.getBlock().equals(Blocks.VINE)) {
-                for (int y = blockPos.getY(); y > 0; y--) {
+            } else if(blockState.getBlock().equals(Blocks.VINE)) {
+                for(int y = blockPos.getY(); y > 0; y--) {
                     BlockPos downPos = new BlockPos(blockPos.getX(), y, blockPos.getZ());
                     Block downBlock = world.getBlockState(downPos).getBlock();
                     if (downBlock.equals(Blocks.AIR)) {

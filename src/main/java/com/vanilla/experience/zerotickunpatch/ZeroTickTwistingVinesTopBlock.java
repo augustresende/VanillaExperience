@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class ZeroTickTwistingVinesTopBlock extends TwistingVinesTopBlock
 {
-    private static final Logger LOGGER = LogManager.getLogger();
     public ZeroTickTwistingVinesTopBlock(Properties properties) {
         super(properties);
     }
@@ -20,7 +19,6 @@ public class ZeroTickTwistingVinesTopBlock extends TwistingVinesTopBlock
         if(!worldIn.isAirBlock(pos.down())) {
             this.randomTick(state, worldIn, pos, rand);
         }
-        LOGGER.info("DEBUG TWISTING");
         super.tick(state, worldIn, pos, rand);
     }
 }

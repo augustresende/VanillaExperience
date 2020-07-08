@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class ZeroTickWeepingVinesTopBlock extends WeepingVinesTopBlock
 {
-    private static final Logger LOGGER = LogManager.getLogger();
     public ZeroTickWeepingVinesTopBlock(Properties properties) {
         super(properties);
     }
@@ -20,7 +19,6 @@ public class ZeroTickWeepingVinesTopBlock extends WeepingVinesTopBlock
         if(!worldIn.isAirBlock(pos.up())) {
             this.randomTick(state, worldIn, pos, rand);
         }
-        LOGGER.info("DEBUG WEEPING");
         super.tick(state, worldIn, pos, rand);
     }
 }

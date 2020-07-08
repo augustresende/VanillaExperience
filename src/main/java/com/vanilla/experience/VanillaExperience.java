@@ -3,11 +3,11 @@ package com.vanilla.experience;
 import com.vanilla.experience.enhancedberries.*;
 import com.vanilla.experience.enhancedbonemeal.*;
 import com.vanilla.experience.enhancedseeds.*;
+import com.vanilla.experience.enhancedtotem.*;
+import com.vanilla.experience.enhancedwitherroses.*;
 import com.vanilla.experience.zerotickunpatch.*;
 import net.minecraft.block.*;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.util.SharedConstants;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -42,7 +42,6 @@ public class VanillaExperience
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadCompleted);
 
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
         DispenserBlock.registerDispenseBehavior(Items.BONE_MEAL, new EnhancedBoneMealDispenserBehaviour());
@@ -53,9 +52,43 @@ public class VanillaExperience
         MinecraftForge.EVENT_BUS.register(new EnhancedBoneMeal());
         MinecraftForge.EVENT_BUS.register(new EnhancedBerries());
         MinecraftForge.EVENT_BUS.register(new EnhancedSeeds());
+        MinecraftForge.EVENT_BUS.register(new EnhancedTotem());
     }
 
-    /* private void setup(final FMLCommonSetupEvent event)
+    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+            if(SharedConstants.getVersion().getWorldVersion() >= 2524){
+                LOGGER.info("Unpatching ZeroTick, ignore the 'Potentially Dangerous' messages.");
+                blockRegistryEvent.getRegistry().register(new ZeroTickBambooBlock(Block.Properties.from(Blocks.BAMBOO)).setRegistryName("minecraft", "bamboo"));
+                blockRegistryEvent.getRegistry().register(new ZeroTickCactusBlock(Block.Properties.from(Blocks.CACTUS)).setRegistryName("minecraft", "cactus"));
+                blockRegistryEvent.getRegistry().register(new ZeroTickSugarCaneBlock(Block.Properties.from(Blocks.SUGAR_CANE)).setRegistryName("minecraft", "sugar_cane"));
+                blockRegistryEvent.getRegistry().register(new ZeroTickKelpTopBlock(Block.Properties.from(Blocks.KELP)).setRegistryName("minecraft", "kelp"));
+                blockRegistryEvent.getRegistry().register(new ZeroTickWeepingVinesTopBlock(Block.Properties.from(Blocks.WEEPING_VINES)).setRegistryName("minecraft", "weeping_vines"));
+                blockRegistryEvent.getRegistry().register(new ZeroTickTwistingVinesTopBlock(Block.Properties.from(Blocks.TWISTING_VINES)).setRegistryName("minecraft", "twisting_vines"));
+                blockRegistryEvent.getRegistry().register(new ZeroTickChorusFlowerBlock(Block.Properties.from(Blocks.CHORUS_FLOWER)).setRegistryName("minecraft", "chorus_flower"));
+                LOGGER.info("Unpatching Wither Rose spawning.");
+                blockRegistryEvent.getRegistry().register(new EnhancedWitherRoses(Block.Properties.from(Blocks.WITHER_ROSE)).setRegistryName("minecraft", "wither_rose"));
+            }
+        }
+
+        @SubscribeEvent
+        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
+            if (SharedConstants.getVersion().getWorldVersion() >= 2524) {
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.BAMBOO, new Item.Properties().group(Items.BAMBOO.getGroup())).setRegistryName("minecraft", "bamboo"));
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.CACTUS, new Item.Properties().group(Items.CACTUS.getGroup())).setRegistryName("minecraft", "cactus"));
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.SUGAR_CANE, new Item.Properties().group(Items.SUGAR_CANE.getGroup())).setRegistryName("minecraft", "sugar_cane"));
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.KELP, new Item.Properties().group(Items.KELP.getGroup())).setRegistryName("minecraft", "kelp"));
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.WEEPING_VINES, new Item.Properties().group(Items.WEEPING_VINES.getGroup())).setRegistryName("minecraft", "weeping_vines"));
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.TWISTING_VINES, new Item.Properties().group(Items.TWISTING_VINES.getGroup())).setRegistryName("minecraft", "twisting_vines"));
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.CHORUS_FLOWER, new Item.Properties().group(Items.CHORUS_FLOWER.getGroup())).setRegistryName("minecraft", "chorus_flower"));
+                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.WITHER_ROSE, new Item.Properties().group(Items.CHORUS_FLOWER.getGroup())).setRegistryName("minecraft", "wither_rose"));
+            }
+        }
+    }
+
+        /* private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
         //LOGGER.info("HELLO FROM PREINIT");
@@ -89,34 +122,5 @@ public class VanillaExperience
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            if(SharedConstants.getVersion().getWorldVersion() >= 2524){
-                LOGGER.info("Unpatching ZeroTick, ignore the 'Potentially Dangerous' messages.");
-                blockRegistryEvent.getRegistry().register(new ZeroTickBambooBlock(Block.Properties.from(Blocks.BAMBOO)).setRegistryName("minecraft", "bamboo"));
-                blockRegistryEvent.getRegistry().register(new ZeroTickCactusBlock(Block.Properties.from(Blocks.CACTUS)).setRegistryName("minecraft", "cactus"));
-                blockRegistryEvent.getRegistry().register(new ZeroTickSugarCaneBlock(Block.Properties.from(Blocks.SUGAR_CANE)).setRegistryName("minecraft", "sugar_cane"));
-                blockRegistryEvent.getRegistry().register(new ZeroTickKelpTopBlock(Block.Properties.from(Blocks.KELP)).setRegistryName("minecraft", "kelp"));
-                blockRegistryEvent.getRegistry().register(new ZeroTickWeepingVinesTopBlock(Block.Properties.from(Blocks.field_235384_mx_)).setRegistryName("minecraft", "weeping_vines"));
-                blockRegistryEvent.getRegistry().register(new ZeroTickTwistingVinesTopBlock(Block.Properties.from(Blocks.field_235386_mz_)).setRegistryName("minecraft", "twisting_vines"));
-                blockRegistryEvent.getRegistry().register(new ZeroTickChorusFlowerBlock((ChorusPlantBlock) Blocks.CHORUS_PLANT, Block.Properties.from(Blocks.CHORUS_FLOWER)).setRegistryName("minecraft", "chorus_flower"));
-            }
-        }
-
-        @SubscribeEvent
-        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
-            if (SharedConstants.getVersion().getWorldVersion() >= 2524) {
-                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.BAMBOO, new Item.Properties().group(Items.BAMBOO.getGroup())).setRegistryName("minecraft", "bamboo"));
-                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.CACTUS, new Item.Properties().group(Items.CACTUS.getGroup())).setRegistryName("minecraft", "cactus"));
-                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.SUGAR_CANE, new Item.Properties().group(Items.SUGAR_CANE.getGroup())).setRegistryName("minecraft", "sugar_cane"));
-                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.KELP, new Item.Properties().group(Items.KELP.getGroup())).setRegistryName("minecraft", "kelp"));
-                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.field_235384_mx_, new Item.Properties().group(Items.field_234718_bB_.getGroup())).setRegistryName("minecraft", "weeping_vines"));
-                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.field_235386_mz_, new Item.Properties().group(Items.field_234719_bC_.getGroup())).setRegistryName("minecraft", "twisting_vines"));
-                itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.CHORUS_FLOWER, new Item.Properties().group(Items.CHORUS_FLOWER.getGroup())).setRegistryName("minecraft", "chorus_flower"));
-            }
-        }
-    }
 }
 

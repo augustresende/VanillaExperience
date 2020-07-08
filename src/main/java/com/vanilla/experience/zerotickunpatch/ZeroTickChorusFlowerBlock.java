@@ -1,6 +1,7 @@
 package com.vanilla.experience.zerotickunpatch;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.ChorusFlowerBlock;
 import net.minecraft.block.ChorusPlantBlock;
 import net.minecraft.util.math.BlockPos;
@@ -11,8 +12,8 @@ import java.util.Random;
 
 public class ZeroTickChorusFlowerBlock extends ChorusFlowerBlock
 {
-    public ZeroTickChorusFlowerBlock(ChorusPlantBlock p_i48429_1_, Properties builder) {
-        super(p_i48429_1_, builder);
+    public ZeroTickChorusFlowerBlock(Properties builder) {
+        super((ChorusPlantBlock) Blocks.CHORUS_PLANT, builder);
     }
 
     @Override

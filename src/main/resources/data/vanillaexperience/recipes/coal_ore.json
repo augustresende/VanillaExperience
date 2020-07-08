@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " c ",
+    "csc",
+    " c "
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "minecraft:coal"
+    },
+    "s":
+    {
+      "item": "minecraft:stone"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:iron_ore",
+    "count": 1
+  }
+}

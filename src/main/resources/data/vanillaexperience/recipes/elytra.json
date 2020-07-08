@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "ppp",
+    "psp",
+    "pdp"
+  ],
+  "key":
+  {
+    "p":
+    {
+      "item": "minecraft:phantom_membrane"
+    },
+    "s":
+    {
+      "item": "minecraft:nether_star"
+    },
+    "d":
+    {
+      "item": "minecraft:dragon_breath"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:elytra",
+    "count": 1
+  }
+}

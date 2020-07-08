@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " g ",
+    "gsg",
+    " g "
+  ],
+  "key":
+  {
+    "g":
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    "s":
+    {
+      "item": "minecraft:stone"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:gold_ore",
+    "count": 1
+  }
+}

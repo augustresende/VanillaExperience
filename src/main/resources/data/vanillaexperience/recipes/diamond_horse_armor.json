@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "  h",
+    "dxd",
+    "b  "
+  ],
+  "key":
+  {
+    "h":
+    {
+      "item": "minecraft:diamond_helmet"
+    },
+    "d":
+    {
+      "item": "minecraft:diamond"
+    },
+    "x":
+    {
+      "item": "minecraft:diamond_block"
+    },
+    "b":
+    {
+      "item": "minecraft:diamond_boots"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:diamond_horse_armor",
+    "count": 1
+  }
+}
