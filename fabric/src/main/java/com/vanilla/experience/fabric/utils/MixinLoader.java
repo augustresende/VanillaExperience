@@ -12,6 +12,9 @@ public class MixinLoader implements Runnable {
         LOGGER.info("[VEX] Patching EnhancedTotem with Fabric Mixin.");
         Mixins.addConfiguration("mixin/fabric/enhancedtotem.mixins.json");
 
+        LOGGER.info("[VEX] Unpatching Protection Enchantments with Fabric Mixin.");
+        Mixins.addConfiguration("mixin/fabric/protectionunpatch.mixins.json");
+
         if (VexUtils.isZeroTickPatched()) {
             LOGGER.info("[VEX] Unpatching ZeroTick with Fabric Mixin.");
             Mixins.addConfiguration("mixin/fabric/zerotickunpatch.mixins.json");

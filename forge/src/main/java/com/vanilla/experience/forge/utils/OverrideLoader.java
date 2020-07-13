@@ -1,9 +1,14 @@
 package com.vanilla.experience.forge.utils;
 
+import com.vanilla.experience.forge.protectionunpatch.override.ProtectionUnpatch;
 import com.vanilla.experience.forge.witherrosesunpatch.override.WitherRose;
 import com.vanilla.experience.forge.zerotickunpatch.override.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.enchantment.ProtectionEnchantment;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -26,7 +31,7 @@ public class OverrideLoader {
     public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
         if(VexUtils.isZeroTickPatched()) {
             LOGGER.info("[VEX] Unpatching ZeroTick, ignore the 'Potentially Dangerous' messages.");
-            LOGGER.info("[VEX] If you want to disable the block overrides, please install MixinBootstrap or use Fabric version.");
+            LOGGER.info("[VEX] If you want to disable the overrides, please install MixinBootstrap or use Fabric version.");
             blockRegistryEvent.getRegistry().register(new ZeroTickBambooBlock(Block.Properties.from(Blocks.BAMBOO)).setRegistryName("minecraft", "bamboo"));
             blockRegistryEvent.getRegistry().register(new ZeroTickCactusBlock(Block.Properties.from(Blocks.CACTUS)).setRegistryName("minecraft", "cactus"));
             blockRegistryEvent.getRegistry().register(new ZeroTickSugarCaneBlock(Block.Properties.from(Blocks.SUGAR_CANE)).setRegistryName("minecraft", "sugar_cane"));
@@ -38,7 +43,7 @@ public class OverrideLoader {
 
         if(VexUtils.isWitherRosesSpawnPatched()) {
             LOGGER.info("[VEX] Unpatching Wither Rose spawning, ignore the 'Potentially Dangerous' messages.");
-            LOGGER.info("[VEX] If you want to disable the block overrides, please install MixinBootstrap or use Fabric version.");
+            LOGGER.info("[VEX] If you want to disable the overrides, please install MixinBootstrap or use Fabric version.");
             blockRegistryEvent.getRegistry().register(new WitherRose(Block.Properties.from(Blocks.WITHER_ROSE)).setRegistryName("minecraft", "wither_rose"));
         }
     }
@@ -47,7 +52,7 @@ public class OverrideLoader {
     public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
         if(VexUtils.isZeroTickPatched()) {
             LOGGER.info("[VEX] Restoring ZeroTick Block Items");
-            LOGGER.info("[VEX] If you want to disable the block overrides, please install MixinBootstrap or use Fabric version.");
+            LOGGER.info("[VEX] If you want to disable the overrides, please install MixinBootstrap or use Fabric version.");
             itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.BAMBOO, new Item.Properties().group(Items.BAMBOO.getGroup())).setRegistryName("minecraft", "bamboo"));
             itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.CACTUS, new Item.Properties().group(Items.CACTUS.getGroup())).setRegistryName("minecraft", "cactus"));
             itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.SUGAR_CANE, new Item.Properties().group(Items.SUGAR_CANE.getGroup())).setRegistryName("minecraft", "sugar_cane"));
@@ -62,5 +67,18 @@ public class OverrideLoader {
             LOGGER.info("[VEX] If you want to disable the block overrides, please install MixinBootstrap or use Fabric version.");
             itemRegistryEvent.getRegistry().register(new BlockItem(Blocks.WITHER_ROSE, new Item.Properties().group(Items.CHORUS_FLOWER.getGroup())).setRegistryName("minecraft", "wither_rose"));
         }
+    }
+
+    private static final EquipmentSlotType[] ARMOR_SLOTS = new EquipmentSlotType[]{EquipmentSlotType.HEAD, EquipmentSlotType.CHEST, EquipmentSlotType.LEGS, EquipmentSlotType.FEET};
+
+    @SubscribeEvent
+    public static void onEnchantmentsRegister(final RegistryEvent.Register<Enchantment> enchantmentRegister) {
+        LOGGER.info("[VEX] Unpatching Protection Enchantment, ignore the 'Potentially Dangerous' messages.");
+        LOGGER.info("[VEX] If you want to disable the overrides, please install MixinBootstrap or use Fabric version.");
+        enchantmentRegister.getRegistry().register(new ProtectionUnpatch(Enchantments.PROTECTION.getRarity(), ProtectionEnchantment.Type.ALL, ARMOR_SLOTS).setRegistryName("minecraft", "protection"));
+        enchantmentRegister.getRegistry().register(new ProtectionUnpatch(Enchantments.FIRE_PROTECTION.getRarity(), ProtectionEnchantment.Type.FIRE, ARMOR_SLOTS).setRegistryName("minecraft", "fire_protection"));
+        enchantmentRegister.getRegistry().register(new ProtectionUnpatch(Enchantments.FEATHER_FALLING.getRarity(), ProtectionEnchantment.Type.FALL, ARMOR_SLOTS).setRegistryName("minecraft", "feather_falling"));
+        enchantmentRegister.getRegistry().register(new ProtectionUnpatch(Enchantments.BLAST_PROTECTION.getRarity(), ProtectionEnchantment.Type.EXPLOSION, ARMOR_SLOTS).setRegistryName("minecraft", "blast_protection"));
+        enchantmentRegister.getRegistry().register(new ProtectionUnpatch(Enchantments.PROJECTILE_PROTECTION.getRarity(), ProtectionEnchantment.Type.PROJECTILE, ARMOR_SLOTS).setRegistryName("minecraft", "projectile_protection"));
     }
 }

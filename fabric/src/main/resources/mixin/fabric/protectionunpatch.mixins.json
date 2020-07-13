@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.vanilla.experience.fabric.protectionunpatch.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "vanillaexperience-1.16.1-refmap.json",
+  "mixins": [
+    "ProtectionUnpatchMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

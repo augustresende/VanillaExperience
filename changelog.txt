@@ -1,1 +1,4 @@
+This version now reenables Protection Stacking into Armors (from 1.14 version)
+
+===============================================================
 This version now supports Fabric AND Forge with SAME JAR. Enjoy.

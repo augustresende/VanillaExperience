@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.vanilla.experience.forge.protectionunpatch.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ProtectionUnpatchMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
