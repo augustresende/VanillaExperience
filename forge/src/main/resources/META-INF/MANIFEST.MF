@@ -1,0 +1,8 @@
+Specification-Vendor: vanillaexperience
+Specification-Title: vanillaexperience
+Specification-Version: 1
+Implementation-Title: vanillaexperience
+Implementation-Version: 1.0
+Implementation-Vendor: vanillaexperience
+MixinConnector: com.vanilla.experience.forge.utils.MixinLoader
+

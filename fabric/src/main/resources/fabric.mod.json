@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "vanillaexperience",
+  "version": "${version}",
+
+  "name": "Vanilla Experience",
+  "description": "Thanks for downloading Vanilla Experience for Fabric!",
+  "authors": [
+    "AugustoResende"
+  ],
+  "contact": {
+    "homepage": "https://mods.augustoresende.com/vanillaexperience/",
+    "sources": "https://mods.augustoresende.com/vanillaexperience/source",
+    "issues": "https://mods.augustoresende.com/vanillaexperience/issues"
+  },
+
+  "license": "WTFPL",
+  "icon": "vex.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "mm:early_risers": [
+      "com.vanilla.experience.fabric.utils.MixinLoader"
+    ],
+    "main": [
+      "com.vanilla.experience.fabric.VanillaExperience"
+    ]
+  },
+  "mixins": [],
+
+  "depends": {
+    "fabricloader": ">=0.7.2",
+    "fabric": "*",
+    "minecraft": "1.16.x",
+    "mm": ">=2.0"
+  }
+}

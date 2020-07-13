@@ -1,147 +1,259 @@
+import java.util.jar.Manifest
+import java.nio.file.*
+import java.nio.file.attribute.BasicFileAttributes
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-    }
-}
-apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-
-version = '0.1.0'
-group = 'com.vanilla.experience'
-archivesBaseName = 'vanillaexperience'
-
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
-minecraft {
-    // The mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   Snapshot are built nightly.
-    // stable_#            Stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '20200707-1.16.1'
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
-
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
-}
-
-dependencies {
-    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.1-32.0.59'
-
-    // You may put jars on which you depend on in ./libs or you may define them like so..
-    // compile "some.group:artifact:version:classifier"
-    // compile "some.group:artifact:version"
-
-    // Real examples
-    // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // These dependencies get remapped to your current MCP mappings
-    // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // For more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
-}
-
-// Example for how to get properties into the manifest for reading by the runtime..
-jar {
-    manifest {
-        attributes([
-            "Specification-Title": "vanillaexperience",
-            "Specification-Vendor": "vanillaexperience",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"vanillaexperience",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
-}
-
-// Example configuration to allow publishing using the maven-publish task
-// This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar')
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
-//publish.dependsOn('reobfJar')
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
         maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+            name = "Modmuss50"
+            url = "http://maven.modmuss50.me/"
+        }
+        jcenter()
+    }
+}
+plugins {
+	id 'java'
+    id "com.matthewprenger.cursegradle" version "1.4.0"
+}
+
+version = "${mod_version}"
+group = "com.vanilla.experience"
+archivesBaseName = "${mod_id}-${mc_version}"
+
+curseforge {
+    apiKey = project.hasProperty("curseForgeApiKey") ? project.curseForgeApiKey : "c1dbff3f-4cfc-4eee-81bf-7406d1e3c5d1"
+    project {
+
+        id = "${curseforge_id}"
+        changelog = file('changelog.txt')
+
+        //release/beta/alpha
+        releaseType = 'release'
+        addGameVersion '1.16.1'
+        addGameVersion 'Java 8'
+        addGameVersion 'Forge'
+        addGameVersion 'Fabric'
+        mainArtifact(new File(new File(buildDir, "libs"), "$archivesBaseName-${version}.jar")) {
+            displayName = "$archivesBaseName-$version"
+            relations {
+                requiredDependency 'mixinbootstrap'
+                requiredDependency 'fabric-api'
+            }
+        }
+        /* addArtifact(new File(new File(buildDir, "libs"), "$archivesBaseName-$version-forge-deobf.jar")) {
+            displayName = "$archivesBaseName-$version-forge-deobf"
+            changelog = "*This is a file for mod developers. If you don't know what to do with it, don't use it!*"
+        }
+        addArtifact(new File(new File(buildDir, "libs"), "$archivesBaseName-$version-fabric-dev.jar")) {
+            displayName = "$archivesBaseName-$version-fabric-dev"
+            changelog = "*This is a file for mod developers. If you don't know what to do with it, don't use it!*"
+        }
+        addArtifact(new File(new File(buildDir, "libs"), "$archivesBaseName-$version-fabric-sources.jar")) {
+            displayName = "$archivesBaseName-$version-fabric-sources"
+            changelog = "*This is a file for mod developers. If you don't know what to do with it, don't use it!*"
+        }
+        addArtifact(new File(new File(buildDir, "libs"), "$archivesBaseName-$version-fabric-sources-dev.jar")) {
+            displayName = "$archivesBaseName-$version-fabric-sources-dev"
+            changelog = "*This is a file for mod developers. If you don't know what to do with it, don't use it!*"
+        } */
+    }
+    options {
+        javaIntegration = false
+        forgeGradleIntegration = false
+    }
+}
+
+task cfpublish(dependsOn: ['build', 'curseforge'])
+
+static boolean isWindows() {
+    return Os.isFamily(Os.FAMILY_WINDOWS);
+}
+
+String appendPrefix(String dir) {
+    if(isWindows())
+        dir = buildscript.sourceFile.getParentFile().getPath().toString()+"\\"+dir
+    return dir
+}
+
+void copyFiles(String dir) {
+    println("Copying $dir files...")
+    File outDir = new File("$buildDir/libs/$dir")
+    //Dev files are not merged, to help avoid developer confusion and/or accidentally importing the wrong loaders' files when developing for one loader or the other.
+    //So in the case of dev files, move them to the final output folder
+    File devOutDir = new File("$buildDir/libs")
+    if(!outDir.exists())
+        outDir.mkdirs()
+    String inDirPath = appendPrefix(dir)
+    File inDir = new File("$inDirPath/build/libs")
+    inDir.listFiles().each { file ->
+        File outFile = null;
+        //Main file from either one
+        if(file.getName() == "$archivesBaseName-${version}.jar")
+            outFile = new File(outDir, file.getName())
+        //Developer file - include which loader it is for in the output filename
+        else
+            outFile = new File(devOutDir, file.getName().replaceAll("$archivesBaseName-$version", "$archivesBaseName-$version-$dir"))
+        if(outFile.exists())
+            outFile.delete()
+        Files.copy(file.toPath(), outFile.toPath())
+    }
+}
+
+void deleteDir(File file) {
+    File[] contents = file.listFiles();
+    if (contents != null)
+        for (File f: contents)
+            if (!Files.isSymbolicLink(f.toPath()))
+                deleteDir(f)
+    file.delete()
+}
+
+task createFinalJar(type: Zip) {
+    from "$buildDir/rebuild"
+    include '**/'
+    archiveName "$archivesBaseName-${version}.jar"
+    destinationDir(file("$buildDir/libs/"))
+}
+
+/*
+task createFinalJar {
+
+    inputs.files(fileTree("$buildDir/rebuild"))
+    outputs.file("$buildDir/libs/$archivesBaseName-${version}.jar")
+    doLast {
+        println("Creating the final jar...")
+        File f = new File("$buildDir/libs/$archivesBaseName-${version}.jar")
+
+        final Path sourceDir = Paths.get("$buildDir/rebuild");
+        try {
+            final ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(f))
+            Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
+                @Override
+                FileVisitResult visitFile(Path file, BasicFileAttributes attributes) {
+                    try {
+                        Path targetFile = sourceDir.relativize(file)
+                        outputStream.putNextEntry(new ZipEntry(targetFile.toString()))
+                        byte[] bytes = Files.readAllBytes(file)
+                        outputStream.write(bytes, 0, bytes.length)
+                        outputStream.closeEntry()
+                    } catch (IOException e) {
+                        e.printStackTrace()
+                    }
+                    return FileVisitResult.CONTINUE
+                }
+            })
+            outputStream.close()
+        } catch (IOException e) {
+            e.printStackTrace()
         }
     }
+}*/
+
+task extractMainJars {
+    inputs.files(fileTree("$buildDir/libs"))
+    outputs.files(fileTree("$buildDir/rebuild"))
+    outputs.files(fileTree("$buildDir/tmp/expandedArchives"))
+    finalizedBy createFinalJar
+    doLast {
+        FileTree fabricTree = zipTree(new File("$buildDir/libs/fabric/$archivesBaseName-${version}.jar"))
+        FileTree forgeTree = zipTree(new File("$buildDir/libs/forge/$archivesBaseName-${version}.jar"))
+        File rebuildDir = new File("$buildDir/rebuild")
+        if (rebuildDir.exists()) {
+            println("Clearing old data...")
+            deleteDir(rebuildDir)
+        }
+        rebuildDir.mkdirs()
+        println("Extracting jars to merge...")
+        Manifest manifest = null
+        String regexSafeBuildDir = buildDir.toString().replaceAll('\\\\', '\\\\\\\\')
+        fabricTree.getFiles().each { file ->
+            String rebuildPath = isWindows() ? file.getPath().replaceAll("$regexSafeBuildDir\\\\tmp\\\\expandedArchives\\\\$archivesBaseName-${version}\\.jar_[0-9a-z]+\\\\", '') : file.getPath().replaceAll("$regexSafeBuildDir/tmp/expandedArchives/$archivesBaseName-${version}.jar_[0-z]+/", '')
+            //Make sure to properly merge the manifests of the jars
+            if (rebuildPath == "META-INF/MANIFEST.MF" || rebuildPath == "META-INF\\MANIFEST.MF") {
+                FileInputStream inputStream = new FileInputStream(file)
+                manifest = new Manifest(inputStream)
+                inputStream.close()
+            } else {
+                File outFile = new File("$buildDir/rebuild/" + rebuildPath)
+                outFile.getParentFile().mkdirs()
+                //println("Extracting file to "+outFile.getPath())
+                Files.copy(file.toPath(), outFile.toPath())
+            }
+        }
+        forgeTree.getFiles().each { file ->
+            String rebuildPath = isWindows() ? file.getPath().replaceAll("$regexSafeBuildDir\\\\tmp\\\\expandedArchives\\\\$archivesBaseName-${version}\\.jar_[0-9a-z]+\\\\", '') : file.getPath().replaceAll("$regexSafeBuildDir/tmp/expandedArchives/$archivesBaseName-${version}.jar_[0-z]+/", '')
+            //Make sure to properly merge the manifests of the jars
+            if (rebuildPath == "META-INF/MANIFEST.MF" || rebuildPath == "META-INF\\MANIFEST.MF") {
+                FileInputStream inputStream = new FileInputStream(file)
+                if (manifest == null)
+                    manifest = new Manifest(inputStream)
+                else
+                    manifest.read(inputStream)
+                inputStream.close()
+            } else {
+                File outFile = new File("$buildDir/rebuild/" + rebuildPath)
+                outFile.getParentFile().mkdirs()
+                //println("Extracting file to "+outFile.getPath())
+                if (!outFile.exists())
+                    Files.copy(file.toPath(), outFile.toPath())
+                else if (outFile.getPath().contains("assets"))
+                    println("Skipping duplicate asset: " + outFile.toPath())
+                else
+                    System.err.println("Warning: Skipping duplicate file: " + outFile.toPath())
+            }
+        }
+        if (manifest != null) {
+            println("Creating manifest...")
+            File outFile = new File("$buildDir/rebuild/META-INF/MANIFEST.MF")
+            outFile.getParentFile().mkdirs()
+            FileOutputStream outputStream = new FileOutputStream(outFile)
+            manifest.write(outputStream)
+            outputStream.close()
+        }
+
+        //Do this because otherwise we end up with a lot of temporary files that never get cleared
+        deleteDir(new File("$buildDir/tmp/expandedArchives"))
+    }
+}
+
+task copyFiles {
+    inputs.files(fileTree("forge/build/libs"))
+    inputs.files(fileTree("fabric/build/libs"))
+    outputs.files(fileTree("$buildDir/libs/forge"))
+    outputs.files(fileTree("$buildDir/libs/fabric"))
+    finalizedBy extractMainJars
+    doLast {
+        copyFiles("forge")
+        copyFiles("fabric")
+    }
+}
+
+task execBuilds {
+    inputs.files(fileTree('fabric'))
+    inputs.files(fileTree('forge'))
+    outputs.files(fileTree("forge/build/libs"))
+    outputs.files(fileTree("fabric/build/libs"))
+    finalizedBy copyFiles
+    doLast {
+        def gradleFile = isWindows() ? "./gradlew.bat" : "./gradlew"
+        def sout = System.out, serr = System.err
+        def procFabric = "$gradleFile build -Pversion=$version -Pgroup=$group -PoutputJarBaseName=$archivesBaseName".execute(null, new File("fabric"))
+        procFabric.consumeProcessOutput(sout, serr)
+        //TODO Test if concurrent even does it any differently
+        if (!project.hasProperty("concurrent") || !project.concurrent)
+            procFabric.waitForOrKill(1800000)
+        def procForge = "$gradleFile build -Pversion=$version -Pgroup=$group -PoutputJarBaseName=$archivesBaseName".execute(null, new File("forge"))
+        procForge.consumeProcessOutput(sout, serr)
+        if (project.hasProperty("concurrent") && project.concurrent)
+            procFabric.waitForOrKill(1800000)
+        procForge.waitForOrKill(1800000)
+    }
+}
+
+build {
+    finalizedBy execBuilds
 }

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "  h",
+    "gxg",
+    "b  "
+  ],
+  "key":
+  {
+    "h":
+    {
+      "item": "minecraft:golden_helmet"
+    },
+    "g":
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    "x":
+    {
+      "item": "minecraft:gold_block"
+    },
+    "b":
+    {
+      "item": "minecraft:golden_boots"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:golden_horse_armor",
+    "count": 1
+  }
+}

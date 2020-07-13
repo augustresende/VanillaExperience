@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.vanilla.experience.fabric.enhancedtotem.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "vanillaexperience-1.16.1-refmap.json",
+  "mixins": [
+    "LivingEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

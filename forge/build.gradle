@@ -1,0 +1,102 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        jcenter()
+        mavenCentral()
+        maven { url = 'https://dist.creeper.host/Sponge/maven' }
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'org.spongepowered', name:'mixingradle', version: '0.7-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir '../common/src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir '../common/src/main/resources'
+        }
+    }
+}
+
+archivesBaseName = project.hasProperty("outputJarBaseName") ? project.outputJarBaseName : "${mod_id}-${mod_version}-${mc_version}"
+
+minecraft {
+
+    mappings channel: 'snapshot', version: "${forge_mappings}"
+
+    runs {
+        client {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            workingDirectory project.file('run').canonicalPath
+
+            mods {
+                vanillaexperience {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            workingDirectory project.file('run').canonicalPath
+
+            mods {
+                vanillaexperience {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    maven { url = 'https://files.minecraftforge.net/maven' }
+    jcenter()
+    mavenCentral()
+    maven { url='https://dist.creeper.host/Sponge/maven' }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+
+    compile 'org.spongepowered:mixin:0.8.1-SNAPSHOT'
+}
+
+jar {
+    inputs.property "version", project.version
+
+    manifest {
+        attributes([
+            "Specification-Title": "${mod_id}",
+            "Specification-Vendor": "${mod_id}",
+            "Specification-Version": "${project.version}",
+            "Implementation-Title": "${mod_id}",
+            "Implementation-Version": "${project.version}",
+            "Implementation-Vendor": "${mod_id}",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConnector": "com.vanilla.experience.forge.utils.MixinLoader"
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}

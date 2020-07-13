@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "com.vanilla.experience.forge.zerotickunpatch.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ZeroTickAbstractTopPlantBlock",
+    "ZeroTickBambooBlock",
+    "ZeroTickCactusBlock",
+    "ZeroTickChorusFlowerBlock",
+    "ZeroTickSugarCaneBlock"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

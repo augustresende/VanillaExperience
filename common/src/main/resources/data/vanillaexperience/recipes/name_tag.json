@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "  s",
+    " p ",
+    "d  "
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "minecraft:string"
+    },
+    "p":
+    {
+      "item": "minecraft:paper"
+    },
+    "d":
+    {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:name_tag",
+    "count": 1
+  }
+}

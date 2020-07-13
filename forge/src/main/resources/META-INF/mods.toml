@@ -1,0 +1,36 @@
+modLoader="javafml"
+
+loaderVersion="[32,)"
+issueTrackerURL="https://mods.augustoresende.com/vanillaexperience/issues"
+
+[[mods]]
+modId="vanillaexperience"
+
+version="${file.jarVersion}"
+
+displayName="Vanilla Experience"
+
+updateJSONURL="https://mods.augustoresende.com/vanillaexperience/updates.json"
+
+displayURL="https://mods.augustoresende.com/vanillaexperience/"
+logoFile="vex.png"
+
+credits="AugustoResende"
+
+authors="AugustoResende"
+
+description='''Thanks for downloading Vanilla Experience for Forge!'''
+
+[[dependencies.forge]]
+    modId="forge"
+    mandatory=true
+    versionRange="[32,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.minecraft]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15,)"
+    ordering="NONE"
+    side="BOTH"

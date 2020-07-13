@@ -1,0 +1,1 @@
+This version now supports Fabric AND Forge with SAME JAR. Enjoy.
