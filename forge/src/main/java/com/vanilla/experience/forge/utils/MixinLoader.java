@@ -19,5 +19,9 @@ public class MixinLoader implements IMixinConnector {
             LOGGER.info("[VEX] Unpatching Wither Rose spawning with MixinBootstrap.");
             Mixins.addConfiguration("mixin/forge/witherrosesunpatch.mixins.json");
         }
+        if(VexUtils.isProtectionPatched()) {
+            LOGGER.info("[VEX] Unpatching Protection Enchantments with MixinBootstrap.");
+            Mixins.addConfiguration("mixin/forge/protectionunpatch.mixins.json");
+        }
     }
 }

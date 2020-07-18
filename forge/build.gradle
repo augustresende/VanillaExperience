@@ -26,7 +26,7 @@ sourceSets {
     }
 }
 
-archivesBaseName = project.hasProperty("outputJarBaseName") ? project.outputJarBaseName : "${mod_id}-${mod_version}-${mc_version}"
+archivesBaseName = project.hasProperty("outputJarBaseName") ? project.outputJarBaseName : "${mod_id}-${mc_version}-${mod_version}"
 
 minecraft {
 

@@ -12,9 +12,6 @@ public class MixinLoader implements Runnable {
         LOGGER.info("[VEX] Patching EnhancedTotem with Fabric Mixin.");
         Mixins.addConfiguration("mixin/fabric/enhancedtotem.mixins.json");
 
-        LOGGER.info("[VEX] Unpatching Protection Enchantments with Fabric Mixin.");
-        Mixins.addConfiguration("mixin/fabric/protectionunpatch.mixins.json");
-
         if (VexUtils.isZeroTickPatched()) {
             LOGGER.info("[VEX] Unpatching ZeroTick with Fabric Mixin.");
             Mixins.addConfiguration("mixin/fabric/zerotickunpatch.mixins.json");
@@ -22,6 +19,10 @@ public class MixinLoader implements Runnable {
         if (VexUtils.isWitherRosesSpawnPatched()) {
             LOGGER.info("[VEX] Unpatching Wither Rose spawning with Fabric Mixin.");
             Mixins.addConfiguration("mixin/fabric/witherrosesunpatch.mixins.json");
+        }
+        if(VexUtils.isProtectionPatched()) {
+            LOGGER.info("[VEX] Unpatching Protection Enchantments with Fabric Mixin.");
+            Mixins.addConfiguration("mixin/fabric/protectionunpatch.mixins.json");
         }
     }
 }
