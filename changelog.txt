@@ -1,1 +1,2 @@
-This version fixes a bug that VanillaExperience doesn't work on ForgeServer (Forge Version) and Protection Mixin is not loading in Fabric
+This version adds Fishing unpatch (you can use your afk fishing farms without any trouble), adds some advancements and fixes some bugs.
+And now the jar is 30% smaller, and Fabric loads faster.
