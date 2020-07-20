@@ -1,5 +1,6 @@
 package com.vanilla.experience.forge.utils;
 
+import com.vanilla.experience.CommonUtils;
 import com.vanilla.experience.forge.protectionunpatch.override.ProtectionUnpatch;
 import com.vanilla.experience.forge.witherrosesunpatch.override.WitherRose;
 import com.vanilla.experience.forge.zerotickunpatch.override.*;
@@ -12,7 +13,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;

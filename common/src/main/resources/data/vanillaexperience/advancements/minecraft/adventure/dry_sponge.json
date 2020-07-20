@@ -1,0 +1,27 @@
+{
+    "display": {
+        "frame": "goal",
+        "icon": {
+            "item": "minecraft:sponge"
+        },
+        "title": {
+            "translate": "Dry It!"
+        },
+        "description": {
+            "translate": "Place a sponge in a furnace"
+        }
+    },
+    "parent": "minecraft:adventure/adventuring_time",
+    "criteria": {
+        "dry_sponge": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:sponge"
+                    }
+                ]
+            }
+        }
+    }
+}

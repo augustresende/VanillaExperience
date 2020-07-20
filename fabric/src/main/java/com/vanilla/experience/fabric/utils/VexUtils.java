@@ -4,16 +4,22 @@ import static net.minecraft.MinecraftVersion.field_25319;
 import com.vanilla.experience.CommonUtils;
 
 public class VexUtils {
-    private static int worldVersion = field_25319.getWorldVersion();
+
+    private static final CommonUtils utils = new CommonUtils(field_25319.getWorldVersion());
+
     public static boolean isZeroTickPatched() {
-        return worldVersion >= CommonUtils.zeroTickVersionPatch;
+        return CommonUtils.isZeroTickPatched();
     }
 
     public static boolean isWitherRosesSpawnPatched() {
-        return worldVersion >= CommonUtils.witherRosesVersionPatch;
+        return CommonUtils.isWitherRosesSpawnPatched();
     }
 
     public static boolean isProtectionPatched() {
-        return worldVersion >= CommonUtils.protectionVersionPatch;
+        return CommonUtils.isProtectionPatched();
+    }
+
+    public static boolean isFishingPatched() {
+        return CommonUtils.isFishingPatched();
     }
 }

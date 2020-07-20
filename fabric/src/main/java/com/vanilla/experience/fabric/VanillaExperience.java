@@ -2,6 +2,7 @@ package com.vanilla.experience.fabric;
 
 import com.vanilla.experience.fabric.enhancedbonemeal.EnhancedBoneMeal;
 import com.vanilla.experience.fabric.enhancedbonemeal.EnhancedBoneMealDispenserBehaviour;
+import com.vanilla.experience.fabric.enhancedburning.FlintAndSteelAttack;
 import com.vanilla.experience.fabric.enhancedseeds.EnhancedSeeds;
 import com.vanilla.experience.fabric.enhancedseeds.EnhancedSeedsDispenserBehaviour;
 import com.vanilla.experience.HelloMessage;
@@ -16,5 +17,6 @@ public class VanillaExperience implements ModInitializer {
 		new EnhancedSeeds();
 		new EnhancedBoneMealDispenserBehaviour();
 		new EnhancedSeedsDispenserBehaviour();
+		new FlintAndSteelAttack();
 	}
 }

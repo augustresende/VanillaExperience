@@ -33,14 +33,17 @@ curseforge {
 
         //release/beta/alpha
         releaseType = 'release'
+        addGameVersion '1.16'
         addGameVersion '1.16.1'
         addGameVersion 'Java 8'
+        addGameVersion 'Java 9'
+        addGameVersion 'Java 10'
         addGameVersion 'Forge'
         addGameVersion 'Fabric'
         mainArtifact(new File(new File(buildDir, "libs"), "$archivesBaseName-${version}.jar")) {
             displayName = "$archivesBaseName-$version"
             relations {
-                requiredDependency 'mixinbootstrap'
+                optionalDependency 'mixinbootstrap'
                 requiredDependency 'fabric-api'
             }
         }

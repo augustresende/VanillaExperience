@@ -21,6 +21,7 @@ sourceSets {
 archivesBaseName = project.hasProperty("outputJarBaseName") ? project.outputJarBaseName : "fabric"
 
 minecraft {
+	refmapName = "${project.mod_id}.fabric.refmap.json"
 }
 
 repositories {
@@ -35,10 +36,6 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	modCompile "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
-	include "com.github.Chocohead:Fabric-ASM:${project.fabric_asm_version}"
-
 }
 
 processResources {

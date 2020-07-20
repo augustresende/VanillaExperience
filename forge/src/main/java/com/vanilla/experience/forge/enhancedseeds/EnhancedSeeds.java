@@ -31,22 +31,23 @@ public class EnhancedSeeds {
         PlayerEntity player = e.getPlayer();
         if(currentBlock.equals(Blocks.DIRT)) {
             world.setBlockState(blockPos, Blocks.GRASS_BLOCK.getDefaultState());
-            if(!player.isCreative())
-                hand.shrink(1);
+            if(!player.isCreative()) hand.shrink(1);
         } else if(currentBlock.equals(Blocks.GRASS_BLOCK)) {
             BlockPos upperPos = blockPos.up();
             Block upperBlock = world.getBlockState(upperPos).getBlock();
             if(upperBlock.equals(Blocks.AIR)) {
                 world.setBlockState(upperPos, Blocks.GRASS.getDefaultState());
-                if(!player.isCreative())
-                    hand.shrink(1);
+                if(!player.isCreative()) hand.shrink(1);
             } else if(upperBlock.equals(Blocks.GRASS)) {
-                if(upgrade(world, blockPos.up()) && !player.isCreative())
-                    hand.shrink(1);
+                if(upgrade(world, blockPos.up())) {
+                    if(!player.isCreative()) hand.shrink(1);
+                }
             }
         } else if(currentBlock.equals(Blocks.GRASS)) {
-            if(upgrade(world, blockPos) && !player.isCreative())
-                hand.shrink(1);
+            if(upgrade(world, blockPos)) {
+                if(!player.isCreative()) hand.shrink(1);
+            }
+
         }
     }
 

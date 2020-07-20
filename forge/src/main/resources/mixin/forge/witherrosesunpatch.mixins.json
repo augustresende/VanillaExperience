@@ -2,7 +2,7 @@
   "required": true,
   "package": "com.vanilla.experience.forge.witherrosesunpatch.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "mixin.refmap.json",
+  "refmap": "vanillaexperience.forge.refmap.json",
   "mixins": [
     "EntityTypeMixin"
   ],

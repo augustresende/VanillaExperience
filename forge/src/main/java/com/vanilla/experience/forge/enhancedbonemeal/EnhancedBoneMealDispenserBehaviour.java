@@ -9,9 +9,14 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.Property;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Collections;
+import java.util.Iterator;
 
 public class EnhancedBoneMealDispenserBehaviour extends DefaultDispenseItemBehavior {
 
@@ -56,6 +61,25 @@ public class EnhancedBoneMealDispenserBehaviour extends DefaultDispenseItemBehav
                     }
                 }
                 return stack;
+            } else if(blockState.getBlock().equals(Blocks.NETHER_WART)) {
+                Iterator<Property<?>> itp = Collections.unmodifiableCollection(blockState.getValues().keySet()).iterator();
+
+                while (itp.hasNext()) {
+                    Property<?> property = itp.next();
+                    if (property instanceof IntegerProperty) {
+                        IntegerProperty prop = (IntegerProperty)property;
+                        String name = prop.getName();
+                        if (name.equals("age")) {
+                            Comparable<?> cv = blockState.getValues().get(property);
+                            int value = Integer.parseUnsignedInt(cv.toString());
+                            int max = Collections.<Integer>max(prop.getAllowedValues());
+                            if (value == max) break;
+                            world.setBlockState(blockPos, world.getBlockState(blockPos).func_235896_a_(property));
+                            stack.shrink(1);
+                            world.playEvent(2005, blockPos, 0);
+                        }
+                    }
+                }
             }
         } else {
             world.playEvent(2005, blockpos, 0);

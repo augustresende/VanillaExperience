@@ -27,8 +27,8 @@ public class EnhancedTotem {
     public void onPlayerDeath(LivingDeathEvent e){
         Entity entity = e.getEntity();
         World world = entity.getEntityWorld();
-        if (!(entity instanceof PlayerEntity)) return;
-        PlayerEntity player = (PlayerEntity) entity;
+        if (!(entity instanceof ServerPlayerEntity)) return;
+        ServerPlayerEntity player = (ServerPlayerEntity) entity;
 
         ItemStack itemStack = null;
         if(player.getHeldItemMainhand().getItem().equals(Items.TOTEM_OF_UNDYING)) {
@@ -52,11 +52,8 @@ public class EnhancedTotem {
         if(itemStack == null) return;
 
         e.setCanceled(true);
-        if(player instanceof ServerPlayerEntity) {
-            ServerPlayerEntity entityPlayer = (ServerPlayerEntity) player;
-            entityPlayer.addStat(Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING));
-            CriteriaTriggers.USED_TOTEM.trigger(entityPlayer, itemStack);
-        }
+        player.addStat(Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING));
+        CriteriaTriggers.USED_TOTEM.trigger(player, itemStack);
 
         player.setHealth(player.getMaxHealth());
         player.clearActivePotions();

@@ -31,28 +31,24 @@ public class EnhancedSeeds implements UseBlockCallback {
 
             if(currentBlock.equals(Blocks.DIRT)) {
                 world.setBlockState(blockPos, Blocks.GRASS_BLOCK.getDefaultState());
-                if(!player.isCreative())
-                    stack.decrement(1);
+                if(!player.isCreative()) stack.decrement(1);
                 return ActionResult.SUCCESS;
             } else if(currentBlock.equals(Blocks.GRASS_BLOCK)) {
                 BlockPos upperPos = blockPos.up();
                 Block upperBlock = world.getBlockState(upperPos).getBlock();
                 if(upperBlock.equals(Blocks.AIR)) {
                     world.setBlockState(upperPos, Blocks.GRASS.getDefaultState());
-                    if(!player.isCreative())
-                        stack.decrement(1);
+                    if(!player.isCreative()) stack.decrement(1);
                     return ActionResult.SUCCESS;
                 } else if(upperBlock.equals(Blocks.GRASS)) {
                     if(upgrade(world, upperPos)) {
-                        if(!player.isCreative())
-                            stack.decrement(1);
+                        if(!player.isCreative()) stack.decrement(1);
                         return ActionResult.SUCCESS;
                     }
                 }
             } else if(currentBlock.equals(Blocks.GRASS)) {
                 if(upgrade(world, blockPos)) {
-                    if(!player.isCreative())
-                        stack.decrement(1);
+                    if(!player.isCreative()) stack.decrement(1);
                     return ActionResult.SUCCESS;
                 }
             }

@@ -25,6 +25,7 @@ public class EnhancedSeedsDispenserBehaviour extends FallibleItemDispenserBehavi
 
         if(currentBlock.equals(Blocks.DIRT)) {
             world.setBlockState(blockPos, Blocks.GRASS_BLOCK.getDefaultState());
+            world.syncWorldEvent(2005, blockPos, 0);
             stack.decrement(1);
         } else if(currentBlock.equals(Blocks.GRASS_BLOCK)) {
             BlockPos upperPos = blockPos.up();
@@ -33,12 +34,14 @@ public class EnhancedSeedsDispenserBehaviour extends FallibleItemDispenserBehavi
                 world.setBlockState(upperPos, Blocks.GRASS.getDefaultState());
                 stack.decrement(1);
             } else if(upperBlock.equals(Blocks.GRASS)) {
-                if(upgrade(world, upperPos))
+                if(upgrade(world, upperPos)) {
                     stack.decrement(1);
+                }
             }
         } else if(currentBlock.equals(Blocks.GRASS)) {
-            if(upgrade(world, blockPos))
+            if(upgrade(world, blockPos)) {
                 stack.decrement(1);
+            }
         } else {
             this.setSuccess(false);
         }

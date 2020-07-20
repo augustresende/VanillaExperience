@@ -19,19 +19,21 @@
 
   "environment": "*",
   "entrypoints": {
-    "mm:early_risers": [
-      "com.vanilla.experience.fabric.utils.MixinLoader"
-    ],
     "main": [
       "com.vanilla.experience.fabric.VanillaExperience"
     ]
   },
-  "mixins": [],
-
+  "mixins": [
+    "mixin/fabric/enhancedberries.mixins.json",
+    "mixin/fabric/enhancedtotem.mixins.json",
+    "mixin/fabric/zerotickunpatch.mixins.json",
+    "mixin/fabric/witherrosesunpatch.mixins.json",
+    "mixin/fabric/protectionunpatch.mixins.json",
+    "mixin/fabric/fishingunpatch.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.7.2",
     "fabric": "*",
-    "minecraft": "1.16.x",
-    "mm": ">=2.0"
+    "minecraft": ">=1.16"
   }
 }

@@ -100,3 +100,7 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
 }
+
+mixin {
+    add sourceSets.main, "${mod_id}.forge.refmap.json"
+}

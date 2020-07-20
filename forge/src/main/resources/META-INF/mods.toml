@@ -31,6 +31,6 @@ description='''Thanks for downloading Vanilla Experience for Forge!'''
 [[dependencies.minecraft]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15,)"
+    versionRange="[1.16,)"
     ordering="NONE"
     side="BOTH"

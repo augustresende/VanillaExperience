@@ -9,8 +9,14 @@ import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Property;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.Collections;
+import java.util.Iterator;
 
 public class EnhancedBoneMealDispenserBehaviour extends FallibleItemDispenserBehavior {
 
@@ -23,9 +29,7 @@ public class EnhancedBoneMealDispenserBehaviour extends FallibleItemDispenserBeh
         ServerWorld world = (ServerWorld) block.getWorld();
         BlockPos blockPos = block.getBlockPos().offset(block.getBlockState().get(DispenserBlock.FACING));
         if (BoneMealItem.useOnFertilizable(stack, world, blockPos) || BoneMealItem.useOnGround(stack, world, blockPos, null)) {
-            if (!world.isClient) {
-                world.syncWorldEvent(2005, blockPos, 0);
-            }
+            world.syncWorldEvent(2005, blockPos, 0);
         } else {
             BlockState blockState = world.getBlockState(blockPos);
             Block currentBlock = blockState.getBlock();
@@ -36,10 +40,8 @@ public class EnhancedBoneMealDispenserBehaviour extends FallibleItemDispenserBeh
                     Block upperBlock = world.getBlockState(upperPos).getBlock();
                     if(upperBlock.equals(Blocks.AIR)) {
                         world.setBlockState(upperPos, blockState.getBlock().getDefaultState());
-                        if (!world.isClient) {
-                            world.syncWorldEvent(2005, upperPos, 0);
-                            world.syncWorldEvent(2005, upperPos.up(), 0);
-                        }
+                        world.syncWorldEvent(2005, upperPos, 0);
+                        world.syncWorldEvent(2005, upperPos.up(), 0);
                         stack.decrement(1);
                         break;
                     }
@@ -50,12 +52,30 @@ public class EnhancedBoneMealDispenserBehaviour extends FallibleItemDispenserBeh
                     Block downBlock = world.getBlockState(downPos).getBlock();
                     if (downBlock.equals(Blocks.AIR)) {
                         world.setBlockState(downPos, blockState.getBlock().getDefaultState());
-                        if (!world.isClient) {
-                            world.syncWorldEvent(2005, downPos, 0);
-                            world.syncWorldEvent(2005, downPos.down(), 0);
-                        }
+                        world.syncWorldEvent(2005, downPos, 0);
+                        world.syncWorldEvent(2005, downPos.down(), 0);
                         stack.decrement(1);
                         break;
+                    }
+                }
+            } else if(blockState.getBlock().equals(Blocks.NETHER_WART)) {
+                Iterator<Property<?>> itp = Collections.unmodifiableCollection(blockState.getProperties()).iterator();
+
+                while (itp.hasNext()) {
+                    Property<?> property = itp.next();
+                    if(property instanceof IntProperty) {
+                        IntProperty prop = (IntProperty)property;
+                        String name = prop.getName();
+                        if (name.equals("age")) {
+                            Comparable<?> cv = blockState.get(property);
+                            int value = Integer.parseUnsignedInt(cv.toString());
+                            int max = Collections.<Integer>max(prop.getValues());
+                            if (value == max) break;
+                            world.setBlockState(blockPos, world.getBlockState(blockPos).cycle(property));
+                            world.syncWorldEvent(2005, blockPos, 0);
+                            stack.decrement(1);
+                            break;
+                        }
                     }
                 }
             } else {

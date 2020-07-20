@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.vanilla.experience.forge.fishingunpatch.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "vanillaexperience.forge.refmap.json",
+  "mixins": [
+    "FishingUnpatchMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

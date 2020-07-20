@@ -34,12 +34,14 @@ public class EnhancedSeedsDispenserBehaviour extends DefaultDispenseItemBehavior
                 world.setBlockState(upperPos, Blocks.GRASS.getDefaultState());
                 stack.shrink(1);
             } else if(upperBlock.equals(Blocks.GRASS)) {
-                if(upgrade(world, upperPos))
+                if(upgrade(world, upperPos)) {
                     stack.shrink(1);
+                }
             }
         } else if(currentBlock.equals(Blocks.GRASS)) {
-            if(upgrade(world, blockPos))
+            if(upgrade(world, blockPos)) {
                 stack.shrink(1);
+            }
         }
         return stack;
     }

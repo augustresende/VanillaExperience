@@ -10,7 +10,7 @@
   {
     "c":
     {
-      "item": "minecraft:coal"
+      "tag": "minecraft:coals"
     },
     "s":
     {
@@ -19,7 +19,7 @@
   },
   "result":
   {
-    "item": "minecraft:iron_ore",
+    "item": "minecraft:coal_ore",
     "count": 1
   }
 }

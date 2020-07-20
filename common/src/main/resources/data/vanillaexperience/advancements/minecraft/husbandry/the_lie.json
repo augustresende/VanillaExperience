@@ -1,0 +1,27 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:cake"
+        },
+        "frame": "challenge",
+        "title": {
+            "translate": "The Lie"
+        },
+        "description": {
+            "translate": "Bake a cake"
+        }
+    },
+    "parent": "vanillaexperience:minecraft/husbandry/bake_bread",
+    "criteria": {
+        "bake_cake": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:cake"
+                    }
+                ]
+            }
+        }
+    }
+}

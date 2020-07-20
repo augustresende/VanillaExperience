@@ -23,5 +23,9 @@ public class MixinLoader implements IMixinConnector {
             LOGGER.info("[VEX] Unpatching Protection Enchantments with MixinBootstrap.");
             Mixins.addConfiguration("mixin/forge/protectionunpatch.mixins.json");
         }
+        if(VexUtils.isFishingPatched()) {
+            LOGGER.info("[VEX] Unpatching Fishing with MixinBootstrap.");
+            Mixins.addConfiguration("mixin/forge/fishingunpatch.mixins.json");
+        }
     }
 }

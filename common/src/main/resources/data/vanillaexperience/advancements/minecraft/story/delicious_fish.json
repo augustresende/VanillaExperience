@@ -1,0 +1,42 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:cooked_salmon"
+        },
+        "title": {
+            "translate": "Delicious Fish"
+        },
+        "description": {
+            "translate": "Catch and cook a fish"
+        }
+    },
+    "parent": "vanillaexperience:minecraft/story/hot_topic",
+    "criteria": {
+        "cooked_salmon": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:cooked_salmon"
+                    }
+                ]
+            }
+        },
+        "cooked_cod": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:cooked_cod"
+                    }
+                ]
+            }
+        }
+    },
+    "requirements": [
+        [
+            "cooked_salmon",
+            "cooked_cod"
+        ]
+    ]
+}

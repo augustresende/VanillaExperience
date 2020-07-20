@@ -9,26 +9,33 @@ import static net.minecraft.util.MinecraftVersion.GAME_VERSION;
 
 public class VexUtils {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static int worldVersion = GAME_VERSION.getWorldVersion();
 
     public static boolean mixinExists() {
+        /*
         try {
             Class.forName("org.spongepowered.asm.launch.MixinBootstrap");
             return true;
         } catch (ClassNotFoundException e) {
             return false;
-        }
+        }*/
+        return false;
     }
 
+    private static final CommonUtils utils = new CommonUtils(GAME_VERSION.getWorldVersion());
+
     public static boolean isZeroTickPatched() {
-        return worldVersion >= CommonUtils.zeroTickVersionPatch;
+        return CommonUtils.isZeroTickPatched();
     }
 
     public static boolean isWitherRosesSpawnPatched() {
-        return worldVersion >= CommonUtils.witherRosesVersionPatch;
+        return CommonUtils.isWitherRosesSpawnPatched();
     }
 
     public static boolean isProtectionPatched() {
-        return worldVersion >= CommonUtils.protectionVersionPatch;
+        return CommonUtils.isProtectionPatched();
+    }
+
+    public static boolean isFishingPatched() {
+        return CommonUtils.isFishingPatched();
     }
 }

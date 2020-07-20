@@ -2,7 +2,8 @@
   "required": true,
   "package": "com.vanilla.experience.fabric.zerotickunpatch.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "vanillaexperience-1.16.1-refmap.json",
+  "refmap": "vanillaexperience.fabric.refmap.json",
+  "plugin": "com.vanilla.experience.fabric.utils.MixinPlugin",
   "mixins": [
     "ZeroTickAbstractPlantStemBlock",
     "ZeroTickBambooBlock",
