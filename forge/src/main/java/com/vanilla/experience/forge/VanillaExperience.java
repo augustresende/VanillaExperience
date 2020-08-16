@@ -1,48 +1,62 @@
 package com.vanilla.experience.forge;
 
+import com.vanilla.experience.Config;
+import com.vanilla.experience.forge.datapack.DataPackDisabler;
 import com.vanilla.experience.forge.enhancedberries.*;
 import com.vanilla.experience.forge.enhancedbonemeal.*;
-import com.vanilla.experience.forge.enhancedice.EnhancedIce;
-import com.vanilla.experience.forge.enhancedkelp.EnhancedKelp;
-import com.vanilla.experience.forge.enhancedkelp.EnhancedKelpDispenserBehaviour;
+import com.vanilla.experience.forge.enhancedburning.*;
+import com.vanilla.experience.forge.enhancedice.*;
+import com.vanilla.experience.forge.enhancedkelp.*;
 import com.vanilla.experience.forge.enhancedseeds.*;
 import com.vanilla.experience.forge.enhancedtotem.*;
-import com.vanilla.experience.forge.fishingunpatch.override.FishingUnpatch;
-import com.vanilla.experience.forge.utils.OverrideLoader;
+import com.vanilla.experience.forge.slimepatch.*;
 import com.vanilla.experience.forge.utils.VexUtils;
 import com.vanilla.experience.HelloMessage;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Mod("vanillaexperience")
 public class VanillaExperience {
-    private static final Logger LOGGER = LogManager.getLogger();
 
     public VanillaExperience() {
+        MinecraftForge.EVENT_BUS.register(this);
+        Config.ConfigBean config = VexUtils.getConfig();
         new HelloMessage();
 
-        new OverrideLoader();
-
-        new EnhancedBoneMealDispenserBehaviour();
-        new EnhancedSeedsDispenserBehaviour();
-        new EnhancedKelpDispenserBehaviour();
-
-        FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLLoadCompleteEvent e) -> {
+        if(config.isEnhancedBoneMealEnabled) {
             new EnhancedBoneMeal();
+            new EnhancedBoneMealDispenserBehaviour();
+        }
+        if(config.isEnhancedSeedsEnabled) {
             new EnhancedSeeds();
+            new EnhancedSeedsDispenserBehaviour();
+        }
+        if(config.isEnhancedKelpEnabled) {
             new EnhancedKelp();
+            new EnhancedKelpDispenserBehaviour();
+        }
+        if(!config.isDataPackEnabled) {
+            new DataPackDisabler();
+        }
+        if(config.isEnhancedBerriesEnabled) {
             new EnhancedBerries();
+        }
+        if(config.isEnhancedTotemEnabled) {
             new EnhancedTotem();
+        }
+        if(config.isEnhancedIceEnabled) {
             new EnhancedIce();
-            new FishingUnpatch();
-        });
+        }
+        if(config.isEnhancedBurningEnabled) {
+            new EnhancedBurning();
+        }
+        if(config.isSlimeSuperFlatPatchEnabled) {
+            new SlimePatch();
+        }
 
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
     }

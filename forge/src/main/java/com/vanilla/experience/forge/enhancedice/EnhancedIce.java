@@ -13,7 +13,7 @@ public class EnhancedIce {
 
     @SubscribeEvent
     public void growEvent(CropGrowEvent.Pre e) {
-        World world = e.getWorld().getWorld();
+        World world = (World) e.getWorld();
         Block block = world.getBlockState(e.getPos().down(2)).getBlock();
         if (block.equals(Blocks.PACKED_ICE) || block.equals(Blocks.BLUE_ICE)) e.setResult(Event.Result.DENY);
     }

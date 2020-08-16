@@ -4,7 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "vanillaexperience.forge.refmap.json",
   "mixins": [
-    "ZeroTickAbstractPlantBlock",
+    "ZeroTickAbstractTopPlantBlock",
     "ZeroTickBambooBlock",
     "ZeroTickCactusBlock",
     "ZeroTickChorusFlowerBlock",

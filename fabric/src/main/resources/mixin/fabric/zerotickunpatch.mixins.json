@@ -6,6 +6,7 @@
   "plugin": "com.vanilla.experience.fabric.utils.MixinPlugin",
   "mixins": [
     "ZeroTickAbstractPlantStemBlock",
+    "ZeroTickAbstractPlantPartBlock",
     "ZeroTickBambooBlock",
     "ZeroTickCactusBlock",
     "ZeroTickChorusFlowerBlock",

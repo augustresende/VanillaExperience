@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.vanilla.experience.fabric.enhancedburning.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "vanillaexperience.fabric.refmap.json",
+  "plugin": "com.vanilla.experience.fabric.utils.MixinPlugin",
+  "mixins": [
+    "FirePatchMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

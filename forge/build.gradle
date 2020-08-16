@@ -65,7 +65,7 @@ repositories {
     maven { url = 'https://files.minecraftforge.net/maven' }
     jcenter()
     mavenCentral()
-    maven { url='https://dist.creeper.host/Sponge/maven' }
+    maven { url = 'https://dist.creeper.host/Sponge/maven' }
     flatDir {
         dirs 'libs'
     }
