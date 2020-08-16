@@ -2,6 +2,7 @@ package com.vanilla.experience.forge.enhancedberries;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -9,8 +10,12 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber
 public class EnhancedBerries {
 
+    public EnhancedBerries() {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
     @SubscribeEvent
-    public static void onDamageEvent(LivingAttackEvent e) {
+    public void onDamageEvent(LivingAttackEvent e) {
         if(!e.getSource().damageType.equals("sweetBerryBush")) return;
 
         if(e.getEntity().isCrouching()) e.setCanceled(true);

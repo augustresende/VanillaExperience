@@ -8,17 +8,19 @@ import org.apache.logging.log4j.Logger;;
 import static net.minecraft.util.MinecraftVersion.GAME_VERSION;
 
 public class VexUtils {
-    private static final Logger LOGGER = LogManager.getLogger();
-
-    public static boolean mixinExists() {
-        /*
+    private static boolean mixinExistsVerify() {
         try {
             Class.forName("org.spongepowered.asm.launch.MixinBootstrap");
             return true;
         } catch (ClassNotFoundException e) {
             return false;
-        }*/
-        return false;
+        }
+    }
+
+    public static boolean mixinExists = mixinExistsVerify();
+
+    public static boolean mixinExists() {
+        return mixinExists;
     }
 
     private static final CommonUtils utils = new CommonUtils(GAME_VERSION.getWorldVersion());

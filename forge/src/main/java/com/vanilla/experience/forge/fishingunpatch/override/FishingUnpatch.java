@@ -23,7 +23,7 @@ public class FishingUnpatch {
 
     @SubscribeEvent
     public void lootTableLoad(LootTableLoadEvent event) {
-        if(VexUtils.isFishingPatched()) {
+        if(!VexUtils.mixinExists() && VexUtils.isFishingPatched()) {
             if (event.getName().equals(new ResourceLocation("minecraft", "gameplay/fishing"))) {
                 LOGGER.info("[VEX] Unpatching Fishing with looting override. For better compatibility use MixinBootstrap or Fabric version.");
                 event.getTable().removePool("main");

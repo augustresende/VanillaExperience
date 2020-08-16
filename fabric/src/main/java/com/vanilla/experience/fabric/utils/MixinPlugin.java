@@ -25,6 +25,14 @@ public class MixinPlugin implements IMixinConfigPlugin {
             LOGGER.info("[VEX] Patching EnhancedBerries with Fabric Mixin.");
             return true;
         }
+        if(mixinClassName.equals("com.vanilla.experience.fabric.slimepatch.mixin.SlimePatchMixin")) {
+            LOGGER.info("[VEX] Patching Slimes in SuperFlat with Fabric Mixin.");
+            return true;
+        }
+        if(mixinClassName.equals("com.vanilla.experience.fabric.enhancedice.mixin.EnhancedIceMixin")) {
+            LOGGER.info("[VEX] Patching EnhancedIce with Fabric Mixin.");
+            return true;
+        }
         if(mixinClassName.contains("com.vanilla.experience.fabric.zerotickunpatch")) {
             if (VexUtils.isZeroTickPatched()) {
                 if(!sentZeroTickMessage) {

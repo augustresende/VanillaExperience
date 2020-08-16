@@ -1,10 +1,11 @@
-package com.vanilla.experience.fabric.enhancedbonemeal;
+package com.vanilla.experience.fabric.enhancedkelp;
 
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.property.IntProperty;
@@ -18,9 +19,9 @@ import net.minecraft.world.World;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class EnhancedBoneMeal implements UseBlockCallback {
+public class EnhancedKelp implements UseBlockCallback {
 
-    public EnhancedBoneMeal(){
+    public EnhancedKelp(){
         UseBlockCallback.EVENT.register(this);
     }
 
@@ -28,12 +29,15 @@ public class EnhancedBoneMeal implements UseBlockCallback {
     public ActionResult interact(PlayerEntity player, World world, Hand hand, BlockHitResult block) {
         ItemStack stack = player.getStackInHand(hand);
 
-        if(stack.getItem().equals(Items.BONE_MEAL)){
+        if(stack.getItem().equals(Items.KELP)){
+
             BlockPos blockPos = block.getBlockPos();
             BlockState blockState = world.getBlockState(blockPos);
             Block currentBlock = blockState.getBlock();
 
-            if(currentBlock.equals(Blocks.CACTUS) || currentBlock.equals((Blocks.SUGAR_CANE))) {
+            if (BoneMealItem.useOnFertilizable(stack, world, blockPos) || BoneMealItem.useOnGround(stack, world, blockPos, null)) {
+                world.syncWorldEvent(2005, blockPos, 0);
+            } else if(currentBlock.equals(Blocks.CACTUS) || currentBlock.equals((Blocks.SUGAR_CANE))) {
                 for(int y = blockPos.getY(); y <= 256; y++) {
                     BlockPos upperPos = new BlockPos(blockPos.getX(), y, blockPos.getZ());
                     Block upperBlock = world.getBlockState(upperPos).getBlock();

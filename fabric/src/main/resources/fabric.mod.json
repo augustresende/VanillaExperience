@@ -26,10 +26,12 @@
   "mixins": [
     "mixin/fabric/enhancedberries.mixins.json",
     "mixin/fabric/enhancedtotem.mixins.json",
+    "mixin/fabric/enhancedice.mixins.json",
     "mixin/fabric/zerotickunpatch.mixins.json",
     "mixin/fabric/witherrosesunpatch.mixins.json",
     "mixin/fabric/protectionunpatch.mixins.json",
-    "mixin/fabric/fishingunpatch.mixins.json"
+    "mixin/fabric/fishingunpatch.mixins.json",
+    "mixin/fabric/slimepatch.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.7.2",
