@@ -50,14 +50,12 @@ public class MixinPlugin implements IMixinConfigPlugin {
                 }
                 if(mixinClassName.equals("com.vanilla.experience.fabric.zerotickunpatch.mixin.ZeroTickAbstractPlantPartBlock")) {
                     if(VexUtils.isZeroTickAbstractChanged()) {
-                        LOGGER.info("[VEX] NEW METHOD.");
                         return true;
                     }
                     return false;
                 }
                 if(mixinClassName.equals("com.vanilla.experience.fabric.zerotickunpatch.mixin.ZeroTickAbstractPlantStemBlock")) {
                     if(!VexUtils.isZeroTickAbstractChanged()) {
-                        LOGGER.info("[VEX] OLD METHOD.");
                         return true;
                     }
                     return false;

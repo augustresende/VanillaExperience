@@ -1,7 +1,7 @@
 package com.vanilla.experience.forge;
 
 import com.vanilla.experience.Config;
-import com.vanilla.experience.forge.datapack.DataPackDisabler;
+import com.vanilla.experience.forge.datapack.*;
 import com.vanilla.experience.forge.enhancedberries.*;
 import com.vanilla.experience.forge.enhancedbonemeal.*;
 import com.vanilla.experience.forge.enhancedburning.*;

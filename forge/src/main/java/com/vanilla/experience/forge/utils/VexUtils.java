@@ -2,6 +2,7 @@ package com.vanilla.experience.forge.utils;
 
 import com.vanilla.experience.CommonUtils;
 import com.vanilla.experience.Config;
+
 import static net.minecraft.util.MinecraftVersion.GAME_VERSION;
 
 public class VexUtils {

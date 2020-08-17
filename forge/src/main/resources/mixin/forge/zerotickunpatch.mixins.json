@@ -3,8 +3,10 @@
   "package": "com.vanilla.experience.forge.zerotickunpatch.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "vanillaexperience.forge.refmap.json",
+  "plugin": "com.vanilla.experience.forge.utils.MixinPlugin",
   "mixins": [
     "ZeroTickAbstractPlantBlock",
+    "ZeroTickAbstractTopPlantBlock",
     "ZeroTickBambooBlock",
     "ZeroTickCactusBlock",
     "ZeroTickChorusFlowerBlock",

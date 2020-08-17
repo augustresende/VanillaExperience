@@ -3,6 +3,7 @@
   "package": "com.vanilla.experience.forge.fishingunpatch.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "vanillaexperience.forge.refmap.json",
+  "plugin": "com.vanilla.experience.forge.utils.MixinPlugin",
   "mixins": [
     "FishingUnpatchMixin"
   ],

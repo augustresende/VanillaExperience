@@ -1,2 +1,6 @@
-This version (0.2.1) adds configuration (you can disable everything that you don't want) and support for 1.16.2. 
+This version (0.2.2) fix a bug when mod is trying to start in Forge Server.
+
+===============================================================================
+
+This version (0.2.1) adds configuration (you can disable everything that you don't want) and support for 1.16.2.
 Still works on 1.16.1, Forge & Fabric (tested).

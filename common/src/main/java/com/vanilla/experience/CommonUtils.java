@@ -13,7 +13,7 @@ public class CommonUtils {
 
     private static int worldVersion;
     private static final File configFilePath = new File("./config/"+ modId +".json");
-    private static Config.ConfigBean currentConfig = new Config.ConfigBean();
+    private static Config.ConfigBean currentConfig;
 
     public CommonUtils(int version) {
         worldVersion = version;
