@@ -1,3 +1,7 @@
+This version (0.2.4) fix another weird bug that crashes on Server Fabric version.
+
+===============================================================================
+
 This version (0.2.3) fix a weird bug that crashes on Fabric version, and upgrade everything to 1.16.3 (but it still works on older versions 1.16.x)
 
 ===============================================================================
