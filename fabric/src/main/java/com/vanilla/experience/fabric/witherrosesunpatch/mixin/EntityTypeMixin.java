@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(EntityType.class)
 public class EntityTypeMixin {
 
-    @Redirect(method = "method_29496", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z", ordinal = 2))
+    @Redirect(method = "isInvalidSpawn(Lnet/minecraft/block/BlockState;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z", ordinal = 2))
     private boolean restoreWitherRoseSpawning(BlockState blockState, Block block) {
         return false; // return false to method that checks if is inside a Whiter Rose
     }

@@ -16,7 +16,7 @@ import java.util.Random;
 
 // this abstracts Kelp, TwistingVines and WeepingVines
 @Mixin(AbstractPlantPartBlock.class)
-public class ZeroTickAbstractPlantPartBlock extends AbstractBlock {
+public abstract class ZeroTickAbstractPlantPartBlock extends AbstractBlock {
 
     public ZeroTickAbstractPlantPartBlock(Settings settings) {
         super(settings);
@@ -27,15 +27,5 @@ public class ZeroTickAbstractPlantPartBlock extends AbstractBlock {
         if(!world.isAir(pos.down())) {
             super.randomTick(state, world, pos, random);
         }
-    }
-
-    @Override
-    public Item asItem() {
-        return null;
-    }
-
-    @Override
-    protected Block asBlock() {
-        return null;
     }
 }

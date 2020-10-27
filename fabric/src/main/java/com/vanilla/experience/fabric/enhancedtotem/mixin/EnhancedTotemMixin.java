@@ -47,7 +47,7 @@ public abstract class EnhancedTotemMixin {
                 player.clearStatusEffects();
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, 1));
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 2)); // 1.16.2
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 1));
                 player.world.sendEntityStatus(player, (byte)35);
 
                 info.setReturnValue(true);

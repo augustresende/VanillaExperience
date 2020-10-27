@@ -20,7 +20,7 @@ public class SlimePatch {
         World world = e.getWorld();
         if(world instanceof ServerWorld) {
             ServerWorld serverworld = (ServerWorld)world;
-            if (serverworld.getServer().func_240793_aU_().func_230418_z_().func_236228_i_() && e.getEntity() instanceof net.minecraft.entity.monster.SlimeEntity) e.setCanceled(true);
+            if (serverworld.getServer().func_240793_aU_().getDimensionGeneratorSettings().func_236228_i_() && e.getEntity() instanceof net.minecraft.entity.monster.SlimeEntity) e.setCanceled(true);
         }
     }
 }
