@@ -20,6 +20,11 @@ public abstract class ZeroTickAbstractPlantBlock extends AbstractBlock {
 
     @Inject(at = @At("TAIL"), method = "tick(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/server/ServerWorld;Lnet/minecraft/util/math/BlockPos;Ljava/util/Random;)V")
     public void tick(final BlockState state, final ServerWorld world, final BlockPos pos, final Random random, CallbackInfo info) {
+        if (!state.isValidPosition(world, pos)) {
+            world.destroyBlock(pos, true);
+            return;
+        }
+
         if(!world.isAirBlock(pos.down())) {
             this.randomTick(state, world, pos, random);
         }

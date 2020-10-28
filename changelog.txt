@@ -1,3 +1,7 @@
+This version (0.2.5) fix some bugs when the mod runs with custom world generation settings.
+
+===============================================================================
+
 This version (0.2.4) fix another weird bug that crashes on Server Fabric version.
 
 ===============================================================================
